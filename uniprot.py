@@ -8,12 +8,12 @@ def search_uniprot(organism_name, organelle, filename):
     queries = f'organism_name:"{organism_name}" AND organelle:"{organelle}"'
     result = service.search(queries)
 
-    # Extract column names and data
+    #extract columsn and rows
     rows = result.split('\n')
     columns = rows[0].split('\t')
     data = [row.split('\t') for row in rows[1:]]
 
-    # Convert data to list of dictionaries
+    #convert to dicts
     results_list = []
     for row in data:
         result_dict = {}
@@ -21,7 +21,7 @@ def search_uniprot(organism_name, organelle, filename):
             result_dict[columns[i]] = row[i]
         results_list.append(result_dict)
 
-    # Write results to JSON file
+    #write on json
     with open(filename, 'w') as f:
         json.dump(results_list, f)
 
